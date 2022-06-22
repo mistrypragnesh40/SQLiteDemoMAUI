@@ -27,10 +27,10 @@ namespace SQLiteDemo.ViewModels
         [ICommand]
         public async void GetStudentList()
         {
+            Students.Clear();
             var studentList = await _studentService.GetStudentList();
             if (studentList?.Count > 0)
             {
-                Students.Clear();
                 foreach (var student in studentList)
                 {
                     Students.Add(student);
