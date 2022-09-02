@@ -14,6 +14,7 @@ namespace SQLiteDemo.ViewModels
 {
     public partial class StudentListPageViewModel : ObservableObject
     {
+        public static List<StudentModel> StudentsListForSearch { get; private set; } = new List<StudentModel>();
         public ObservableCollection<StudentModel> Students { get; set; } = new ObservableCollection<StudentModel>();
 
         private readonly IStudentService _studentService;
@@ -35,6 +36,8 @@ namespace SQLiteDemo.ViewModels
                 {
                     Students.Add(student);
                 }
+                StudentsListForSearch.Clear();
+                StudentsListForSearch.AddRange(studentList);
             }
         }
 

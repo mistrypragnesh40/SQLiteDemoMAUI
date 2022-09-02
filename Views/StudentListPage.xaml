@@ -2,10 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:SQLiteDemo.Models"
+             xmlns:searchHandlers="clr-namespace:SQLiteDemo.SearchHandlers"
              xmlns:viewModels="clr-namespace:SQLiteDemo.ViewModels"
              x:DataType="viewModels:StudentListPageViewModel"
              x:Class="SQLiteDemo.Views.StudentListPage"
              Title="Student List">
+    <Shell.SearchHandler>
+        <searchHandlers:StudentSearchHandler 
+            Placeholder="Search Name"
+            ShowsResults="True"
+            QueryIcon="search"
+            ClearIcon="clear"
+            NavigationRoute="AddUpdateStudentDetail"
+            Students="{x:Static viewModels:StudentListPageViewModel.StudentsListForSearch}">
+            <searchHandlers:StudentSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="models:StudentModel">
+                    <Grid Margin="5" RowDefinitions="Auto" ColumnDefinitions="40,Auto">
+                        <Image Grid.Row="0" Grid.Column="0" Source="user" HeightRequest="35" WidthRequest="35" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding FullName}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </searchHandlers:StudentSearchHandler.ItemTemplate>
+        </searchHandlers:StudentSearchHandler>
+    </Shell.SearchHandler>
     <StackLayout Margin="10">
         <Label  Text="Student List" FontSize="28"/>
         <Button Text="Add Student" Command="{Binding AddUpdateStudentCommand}" HorizontalOptions="EndAndExpand" />
@@ -15,7 +34,7 @@
                 <DataTemplate x:DataType="models:StudentModel">
                     <Frame Margin="10" Padding="10">
                         <StackLayout >
-                            <HorizontalStackLayout Spacing="15">
+                            <HorizontalStackLayout Spacing="10">
                                 <Label Text="{Binding FirstName}" FontSize="18" FontAttributes="Bold" />
                                 <Label Text="{Binding LastName}" FontSize="18" FontAttributes="Bold" />
                             </HorizontalStackLayout>
