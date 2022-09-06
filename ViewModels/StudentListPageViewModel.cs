@@ -32,6 +32,7 @@ namespace SQLiteDemo.ViewModels
             var studentList = await _studentService.GetStudentList();
             if (studentList?.Count > 0)
             {
+                studentList = studentList.OrderBy(f => f.FullName).ToList();
                 foreach (var student in studentList)
                 {
                     Students.Add(student);
