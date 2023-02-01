@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SQLiteDemo.Models;
 using SQLiteDemo.Services;
 using SQLiteDemo.Views;
@@ -25,7 +25,7 @@ namespace SQLiteDemo.ViewModels
 
 
 
-        [ICommand]
+        [RelayCommand]
         public async void GetStudentList()
         {
             Students.Clear();
@@ -43,14 +43,32 @@ namespace SQLiteDemo.ViewModels
         }
 
 
-        [ICommand]
+        [RelayCommand]
         public async void AddUpdateStudent()
         {
             await AppShell.Current.GoToAsync(nameof(AddUpdateStudentDetail));
         }
 
+        [RelayCommand]
+        public async void EditStudent(StudentModel studentModel)
+        {
+            var navParam = new Dictionary<string, object>();
+            navParam.Add("StudentDetail", studentModel);
+            await AppShell.Current.GoToAsync(nameof(AddUpdateStudentDetail), navParam);
+        }
 
-        [ICommand]
+        [RelayCommand]
+        public async void DeleteStudent(StudentModel studentModel)
+        {
+            var delResponse = await _studentService.DeleteStudent(studentModel);
+            if (delResponse > 0)
+            {
+                GetStudentList();
+            }
+        }
+
+
+        [RelayCommand]
         public async void DisplayAction(StudentModel studentModel)
         {
             var response = await AppShell.Current.DisplayActionSheet("Select Option", "OK", null, "Edit", "Delete");

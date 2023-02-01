@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SQLiteDemo.Models;
 using SQLiteDemo.Services;
 using System;
@@ -22,7 +22,7 @@ namespace SQLiteDemo.ViewModels
             _studentService = studentService;
         }
 
-        [ICommand]
+        [RelayCommand]
         public async void AddUpdateStudent()
         {
             int response = -1;

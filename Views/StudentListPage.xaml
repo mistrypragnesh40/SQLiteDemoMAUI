@@ -32,19 +32,42 @@
         <CollectionView ItemsSource="{Binding Students}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:StudentModel">
-                    <Frame Margin="10" Padding="10">
-                        <StackLayout >
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="{Binding FirstName}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="{Binding LastName}" FontSize="18" FontAttributes="Bold" />
-                            </HorizontalStackLayout>
-                            <Label Text="{Binding Email}" />
-                        </StackLayout>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:StudentListPageViewModel}},Path=DisplayActionCommand}"
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItemView>
+                                    <VerticalStackLayout  BackgroundColor="LightBlue">
+                                        <Label Text="Edit" 
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="White" />
+                                    </VerticalStackLayout>
+                                </SwipeItemView>
+                                <SwipeItemView>
+                                    <VerticalStackLayout BackgroundColor="Red">
+                                        <Label Text="Delete" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White" />
+                                    </VerticalStackLayout>
+                                </SwipeItemView>
+                                <!--<SwipeItem Text="Edit" IconImageSource="dotnet_bot" BackgroundColor="LightBlue" 
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:StudentListPageViewModel}},Path=EditStudentCommand}" />
+                                <SwipeItem Text="Delete" IconImageSource="dotnet_bot" BackgroundColor="Red"  CommandParameter="{Binding .}"
+                                           Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:StudentListPageViewModel}},Path=DeleteStudentCommand}" />-->
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <Frame Margin="10" Padding="10">
+                            <VerticalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label Text="{Binding FirstName}" FontSize="18" FontAttributes="Bold" />
+                                    <Label Text="{Binding LastName}" FontSize="18" FontAttributes="Bold" />
+                                </HorizontalStackLayout>
+                                <Label Text="{Binding Email}" />
+                            </VerticalStackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:StudentListPageViewModel}},Path=DisplayActionCommand}"
                                                   CommandParameter="{Binding .}" />
-                        </Frame.GestureRecognizers>
-                    </Frame>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </SwipeView>
                    
                 </DataTemplate>
             </CollectionView.ItemTemplate>
